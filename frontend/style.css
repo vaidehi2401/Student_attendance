@@ -1,0 +1,49 @@
+body {
+    background-color: #f8f9fa;
+}
+.header-section {
+    background-color: #e0e0e0;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Increase width */
+    margin: 0 auto; /* Center align */
+    flex-wrap: nowrap;
+}
+
+.student-list {
+    margin-top: 20px;
+}
+ 
+.student-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.radio-group {
+    display: flex;
+    gap: 20px;
+}
+.btn-container {
+    display: flex;
+    gap: 10px;
+}
+.attendance{
+
+}
+.card-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none; /* Initially hidden */
+}
