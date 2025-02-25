@@ -12,7 +12,12 @@ body {
     margin: 0 auto; /* Center align */
     flex-wrap: nowrap;
 }
-
+.marka{
+    display: none;
+}
+.after{
+    display: none;
+}
 .student-list {
     margin-top: 20px;
 }

@@ -17,38 +17,25 @@
             <div class="d-flex align-items-center">
                 <label for="date" class="me-2 fw-bold">Select a Date:</label>
                 <input type="date" id="date" class="form-control me-3">
-                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-primary" onclick="search()">Search</button>
             </div>
-            <button class="btn btn-success attendance">Fetch Attendance Report</button>
+            <button class="btn btn-success attendance" id="dashboard">Fetch Attendance Report</button>
             
         </div>
     
         <!-- Student List -->
-        <div class="student-list mt-4">
-            <div class="student-item">
-                <span class="fw-bold">Siva</span>
-                <div class="radio-group">
-                    <input type="radio" name="siva" id="siva_present" checked>
-                    <label for="siva_present">Present</label>
-                    <input type="radio" name="siva" id="siva_absent">
-                    <label for="siva_absent">Absent</label>
-                </div>
-            </div>
-            <div class="student-item">
-                <span class="fw-bold">Rajesh</span>
-                <div class="radio-group">
-                    <input type="radio" name="rajesh" id="rajesh_present" checked>
-                    <label for="rajesh_present">Present</label>
-                    <input type="radio" name="rajesh" id="rajesh_absent">
-                    <label for="rajesh_absent">Absent</label>
-                </div>
-            </div>
+        <div class="student-list mt-4" id="student-list">
+            
+            <!-- Add more students here -->
+        </div>
+        <div class="student-list after mt-4" id="student-listafter">
+            
             <!-- Add more students here -->
         </div>
     
         <!-- Buttons -->
         <div class="d-flex justify-content-between mt-4">
-            <button class="btn btn-warning">Mark Attendance</button>
+            <button class="btn btn-warning marka" id="marka" onclick="markAttendance()">Mark Attendance</button>
             <button class="btn btn-info" onclick="showForm()">Add Student</button>
         </div>
     </div>
@@ -57,7 +44,7 @@
         <input type="text" id="studentName" class="form-control my-3" placeholder="Enter student name">
         <div class="d-flex justify-content-between">
             <button class="btn btn-danger" onclick="closeForm()">Close</button>
-            <button class="btn btn-success">Add Student</button>
+            <button class="btn btn-success" onclick="addStudent()">Add Student</button>
         </div>
     </div>
     
