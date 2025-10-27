@@ -1,0 +1,59 @@
+name: Commit message check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine commit range
+        id: range
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "range=${{ github.event.before }}..${{ github.sha }}" >> $GITHUB_OUTPUT
+          else
+            echo "range=${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check commit messages
+        run: |
+          set -e
+          VALID_REGEX='^[0-9]{5}\b'
+          RANGE="${{ steps.range.outputs.range }}"
+          BEFORE=$(echo "$RANGE" | cut -d. -f1)
+          AFTER=$(echo "$RANGE" | cut -d. -f3)
+          if [[ "$BEFORE" =~ ^0+$ ]]; then
+            LIST="$AFTER"
+          else
+            LIST=$(git rev-list --reverse "$BEFORE..$AFTER")
+          fi
+
+          if [ -z "$LIST" ]; then
+            echo "No commits to check."
+            exit 0
+          fi
+
+          bad=0
+          for commit in $LIST; do
+            msg=$(git log --format=%B -n 1 "$commit" || true)
+            msg="$(echo "$msg" | sed '/./,$!d')"
+            if ! echo "$msg" | grep -qE "$VALID_REGEX"; then
+              echo "Commit $commit does not start with a 5-digit issue ID."
+              echo " -> $(git log --format='%h %s' -n 1 $commit)"
+              bad=1
+            fi
+          done
+
+          if [ $bad -ne 0 ]; then
+            echo "::error ::One or more commit messages do not start with a 5-digit issue ID."
+            exit 1
+          fi
+
+          echo "All commit messages pass."
